@@ -1,9 +1,13 @@
 package com.Futureintern_JD_3.Model;
 
+
+import java.util.Random;
+
 public class Game {
     private char[][] board;
     private char currentPlayer;
     private boolean gameActive;
+    private String mode; // "2P" or "AI"
 
     public Game() {
         resetGame();
@@ -27,6 +31,15 @@ public class Game {
         return gameActive;
     }
 
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+        resetGame();
+    }
+
     public void makeMove(int row, int col) {
         if (gameActive && board[row][col] == '\0') {
             board[row][col] = currentPlayer;
@@ -35,7 +48,11 @@ public class Game {
             } else if (isBoardFull()) {
                 gameActive = false;
             } else {
-                currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                if ("AI".equals(mode) && currentPlayer == 'X') {
+                    aiMove();
+                } else {
+                    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+                }
             }
         }
     }
@@ -81,5 +98,15 @@ public class Game {
             }
         }
         return true;
+    }
+
+    private void aiMove() {
+        Random random = new Random();
+        int row, col;
+        do {
+            row = random.nextInt(3);
+            col = random.nextInt(3);
+        } while (board[row][col] != '\0');
+        makeMove(row, col);
     }
 }
