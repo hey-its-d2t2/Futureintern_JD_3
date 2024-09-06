@@ -1,7 +1,9 @@
 package com.Futureintern_JD_3.Service;
 
 import com.Futureintern_JD_3.Model.Game;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameService {
     private Game game = new Game();
 
