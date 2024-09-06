@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/tictactoe")
 public class TicTacToeController {
+
     @Autowired
     private GameService gameService;
 
@@ -27,6 +28,12 @@ public class TicTacToeController {
     @PostMapping("/reset")
     public String resetGame() {
         gameService.resetGame();
+        return "redirect:/tictactoe";
+    }
+
+    @PostMapping("/setMode")
+    public String setMode(@RequestParam String mode) {
+        gameService.setMode(mode);
         return "redirect:/tictactoe";
     }
 }
