@@ -18,4 +18,8 @@ public class GameService {
     public void resetGame() {
         game.resetGame();
     }
+
+    public void setMode(String mode) {
+        game.setMode(mode);
+    }
 }
