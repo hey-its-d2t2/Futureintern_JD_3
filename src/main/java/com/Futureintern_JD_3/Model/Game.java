@@ -1,6 +1,5 @@
 package com.Futureintern_JD_3.Model;
 
-
 public class Game {
     private char[][] board;
     private char currentPlayer;
@@ -42,7 +41,6 @@ public class Game {
     }
 
     private boolean checkWin() {
-        // Check rows, columns, and diagonals for a win
         return (checkRows() || checkColumns() || checkDiagonals());
     }
 
