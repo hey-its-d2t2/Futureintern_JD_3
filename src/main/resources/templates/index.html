@@ -53,6 +53,10 @@
             border: 1px solid #4CAF50;
         }
 
+        .popup.show {
+            display: block;
+        }
+
     </style>
 </head>
 <body>
@@ -70,15 +74,23 @@
          th:onclick="'makeMove(' + iterStat.index + ')'"></div>
 </div>
 
-<div id="result-popup" class="popup" th:if="${result != ''}">
+<div id="result-popup" class="popup" th:classappend="${result != ''} ? 'show' : ''">
     <div class="popup-content">
         <span th:text="${result}"></span>
         <button onclick="window.location.reload()">Replay</button>
     </div>
 </div>
+
 <script>
-    function makeMove(cell) {
-        document.getElementById}
+    function makeMove(index) {
+        // Send an HTTP request to make a move (You can replace with actual logic)
+        fetch('/makeMove/' + index, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                // Refresh the page to see the updated board and result
+                window.location.reload();
+            });
+    }
 </script>
 </body>
 </html>
