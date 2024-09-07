@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tic-Tac-Toe</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar {
+            background-color: #4CAF50;
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .game-board {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #4CAF50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-left">
+        <span>Deepak Singh</span>
+    </div>
+    <div class="nav-center">
+        <span>Tic-Tac-Toe</span>
+    </div>
+</nav>
+
+<div class="game-board">
+    <div th:each="cell, iterStat : ${board}" class="cell" th:text="${cell}"
+         th:onclick="'makeMove(' + iterStat.index + ')'"></div>
+</div>
+
+<div id="result-popup" class="popup" th:if="${result != ''}">
+    <div class="popup-content">
+        <span th:text="${result}"></span>
+        <button onclick="window.location.reload()">Replay</button>
+    </div>
+</div>
+<script>
+    function makeMove(cell) {
+        document.getElementById}
+</script>
+</body>
+</html>

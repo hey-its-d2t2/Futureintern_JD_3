@@ -1,9 +1,7 @@
 package com.Futureintern_JD_3.Controller;
 
-package com.example.tictactoe.controller;
-
-import com.example.tictactoe.model.TicTacToeGame;
-import com.example.tictactoe.service.GameService;
+import com.Futureintern_JD_3.Model.TicTacToeGame;
+import com.Futureintern_JD_3.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
