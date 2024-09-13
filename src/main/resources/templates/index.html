@@ -1,95 +1,168 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Tic-Tac-Toe</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background-color: #f0f8f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
 
         .navbar {
-            background-color: #4CAF50;
-            width: 100%;
-            padding: 10px;
             display: flex;
             justify-content: space-between;
-            color: white;
-            font-size: 1.5rem;
+            align-items: center;
+            background-color: #2e8b57;
+            padding: 15px 20px;
+            color: #fff;
         }
 
-        .game-board {
-            margin-top: 30px;
+        .navbar .project-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .user-name {
+            font-size: 18px;
+        }
+
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
         }
 
         .cell {
-            width: 100px;
+            width: 100%;
             height: 100px;
-            background-color: #fff;
-            border: 2px solid #4CAF50;
+            background: #fff;
+            border: 2px solid #ddd;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 2rem;
+            justify-content: center;
+            font-size: 36px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
 
-        .popup {
-            display: none;
+        .cell:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.05);
+        }
+
+        .cell.X {
+            color: #dc143c;
+        }
+
+        .cell.O {
+            color: #2e8b57;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #2e8b57;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #1e6a40;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #2e8b57;
+            color: #fff;
+            text-align: center;
+            padding: 10px 20px;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #4CAF50;
+            bottom: 0;
+            width: 100%;
         }
 
-        .popup.show {
-            display: block;
+        footer a {
+            color: #fff;
+            text-decoration: none;
         }
-
     </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-left">
-        <span>Deepak Singh</span>
-    </div>
-    <div class="nav-center">
-        <span>Tic-Tac-Toe</span>
-    </div>
-</nav>
-
-<div class="game-board">
-    <div th:each="cell, iterStat : ${board}" class="cell" th:text="${cell}"
-         th:onclick="'makeMove(' + iterStat.index + ')'"></div>
+<div class="navbar">
+    <div class="user-name">Deepak Singh</div>
+    <div class="project-name">Tic-Tac-Toe</div>
 </div>
-
-<div id="result-popup" class="popup" th:classappend="${result != ''} ? 'show' : ''">
-    <div class="popup-content">
-        <span th:text="${result}"></span>
-        <button onclick="window.location.reload()">Replay</button>
+<div class="container">
+    <h1>Tic-Tac-Toe</h1>
+    <div class="board">
+        <div class="cell" id="cell-0" onclick="makeMove(0)"></div>
+        <div class="cell" id="cell-1" onclick="makeMove(1)"></div>
+        <div class="cell" id="cell-2" onclick="makeMove(2)"></div>
+        <div class="cell" id="cell-3" onclick="makeMove(3)"></div>
+        <div class="cell" id="cell-4" onclick="makeMove(4)"></div>
+        <div class="cell" id="cell-5" onclick="makeMove(5)"></div>
+        <div class="cell" id="cell-6" onclick="makeMove(6)"></div>
+        <div class="cell" id="cell-7" onclick="makeMove(7)"></div>
+        <div class="cell" id="cell-8" onclick="makeMove(8)"></div>
+    </div>
+    <div class="status">
+        <p></p>
+        <button onclick="restartGame()">Restart Game</button>
     </div>
 </div>
-
+<footer>
+    &copy; 2024 Deepak Singh | Email: <a href="mailto:deepsinghkumar01@gmail.com">deepsinghkumar01@gmail.com</a>
+</footer>
 <script>
+    let gameActive = true;
+
     function makeMove(index) {
-        // Send an HTTP request to make a move (You can replace with actual logic)
-        fetch('/makeMove/' + index, { method: 'POST' })
-            .then(response => response.json())
-            .then(data => {
-                // Refresh the page to see the updated board and result
-                window.location.reload();
-            });
+        if (!$(".cell").eq(index).text() === '' || !gameActive) return;
+
+        $.post('/tic-tac-toe/makeMove/' + index, { mode: 'single' }, function (data) {
+            updateBoard(data);
+        });
+    }
+
+    function restartGame() {
+        $.post('/tic-tac-toe/restart', function (data) {
+            updateBoard(data);
+        });
+    }
+
+    function updateBoard(data) {
+        data.board.forEach((cell, index) => {
+            $("#cell-" + index).text(cell).removeClass('X O').addClass(cell);
+        });
+        $(".status p").text(data.result);
+        gameActive = data.result === "";
     }
 </script>
 </body>
