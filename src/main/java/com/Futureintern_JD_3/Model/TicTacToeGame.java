@@ -19,9 +19,13 @@ public class TicTacToeGame {
         return result;
     }
 
+    public void setResult(String result) {
+        this.result = result;
+    }
+
     public void makeMove(int cell, String currentPlayer) {
         if (isCellEmpty(cell)) {
-            board[cell - 1] = currentPlayer;
+            board[cell] = currentPlayer;
             if (checkWin(currentPlayer)) {
                 result = currentPlayer + " Wins!";
             } else if (isBoardFull()) {
@@ -31,7 +35,7 @@ public class TicTacToeGame {
     }
 
     public boolean isCellEmpty(int cell) {
-        return board[cell - 1].isEmpty();
+        return board[cell].isEmpty();
     }
 
     private boolean isBoardFull() {
