@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Tic-Tac-Toe is a classic game implemented using Java Spring Boot for the backend and Thymeleaf, HTML, and CSS for the frontend. The application allows users to play Tic-Tac-Toe against either another player or a computer. It includes functionalities such as making moves, checking for a winner, and restarting the game. 
+Tic-Tac-Toe is a classic game implemented using Java Spring Boot for the backend and Thymeleaf, HTML, and CSS for the frontend. This is a part of my internship **Task 5** for my **Future Intern** internship. The application allows users to play Tic-Tac-Toe against either another player or a computer. It includes functionalities such as making moves, checking for a winner, and restarting the game. 
 
 ## Features ✨
 
