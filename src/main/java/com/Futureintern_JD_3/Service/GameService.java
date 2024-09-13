@@ -10,6 +10,10 @@ public class GameService {
 
     private TicTacToeGame game = new TicTacToeGame();
 
+    public TicTacToeGame getGame() {
+        return game;
+    }
+
     public TicTacToeGame makeMove(int cell, String currentPlayer) {
         game.makeMove(cell, currentPlayer);
         return game;
@@ -19,10 +23,13 @@ public class GameService {
         Random random = new Random();
         int move;
         do {
-            move = random.nextInt(9) + 1;  // Random move from 1 to 9
-        } while (!game.isCellEmpty(move));  // Ensure the move is valid
+            move = random.nextInt(9);  // Random move from 0 to 8
+        } while (!game.isCellEmpty(move));
         game.makeMove(move, currentPlayer);
         return game;
     }
-}
 
+    public void resetGame() {
+        game = new TicTacToeGame();
+    }
+}
